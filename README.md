@@ -652,5 +652,231 @@ body {
 }
 
     <script src="script.js"></script>
+
+    // Menu Data
+const menuItems = [
+    {
+        id: 1,
+        name: 'Cheese Burst Pizza',
+        category: 'mains',
+        price: '₹249',
+        description: 'Extra cheesy pizza with mozzarella',
+        emoji: '🍕'
+    },
+    {
+        id: 2,
+        name: 'Garlic Bread',
+        category: 'starters',
+        price: '₹99',
+        description: 'Crispy garlic bread with butter',
+        emoji: '🥖'
+    },
+    {
+        id: 3,
+        name: 'Paneer Tikka',
+        category: 'starters',
+        price: '₹149',
+        description: 'Grilled paneer with spices',
+        emoji: '🍗'
+    },
+    {
+        id: 4,
+        name: 'Butter Chicken',
+        category: 'mains',
+        price: '₹299',
+        description: 'Creamy butter chicken curry',
+        emoji: '🍛'
+    },
+    {
+        id: 5,
+        name: 'Chocolate Cake',
+        category: 'desserts',
+        price: '₹129',
+        description: 'Rich chocolate cake slice',
+        emoji: '🍰'
+    },
+    {
+        id: 6,
+        name: 'Fresh Lemonade',
+        category: 'beverages',
+        price: '₹49',
+        description: 'Chilled fresh lemonade',
+        emoji: '🍋'
+    },
+    {
+        id: 7,
+        name: 'Biryani',
+        category: 'mains',
+        price: '₹249',
+        description: 'Fragrant basmati rice biryani',
+        emoji: '🍚'
+    },
+    {
+        id: 8,
+        name: 'Momos',
+        category: 'starters',
+        price: '₹79',
+        description: 'Steamed dumplings with veggies',
+        emoji: '🥟'
+    },
+    {
+        id: 9,
+        name: 'Gulab Jamun',
+        category: 'desserts',
+        price: '₹99',
+        description: 'Sweet milk dumplings in syrup',
+        emoji: '🍮'
+    },
+    {
+        id: 10,
+        name: 'Mango Smoothie',
+        category: 'beverages',
+        price: '₹79',
+        description: 'Fresh mango smoothie',
+        emoji: '🥤'
+    }
+];
+
+// Gallery Images Data
+const galleryItems = [
+    { id: 1, title: 'Delicious Pizza', emoji: '🍕' },
+    { id: 2, title: 'Fresh Salad', emoji: '🥗' },
+    { id: 3, title: 'Grilled Chicken', emoji: '🍗' },
+    { id: 4, title: 'Biryani', emoji: '🍚' },
+    { id: 5, title: 'Desserts', emoji: '🍰' },
+    { id: 6, title: 'Beverages', emoji: '🥤' }
+];
+
+// Reviews Data
+const reviews = [
+    {
+        id: 1,
+        name: 'Rahul Kumar',
+        rating: 5,
+        text: 'Amazing food quality and quick delivery! Highly recommended.',
+        avatar: '👨'
+    },
+    {
+        id: 2,
+        name: 'Priya Singh',
+        rating: 5,
+        text: 'Best cloud kitchen in the area. Loved the butter chicken!',
+        avatar: '👩'
+    },
+    {
+        id: 3,
+        name: 'Amit Patel',
+        rating: 4,
+        text: 'Great variety of menu items. Food is fresh and tasty.',
+        avatar: '👨'
+    },
+    {
+        id: 4,
+        name: 'Anjali Sharma',
+        rating: 5,
+        text: 'Fantastic experience! Will definitely order again.',
+        avatar: '👩'
+    }
+];
+
+// Initialize Page
+document.addEventListener('DOMContentLoaded', function() {
+    loadMenuItems('all');
+    loadGallery();
+    loadReviews();
+    setupContactForm();
+});
+
+// Load Menu Items
+function loadMenuItems(category) {
+    const menuGrid = document.getElementById('menuGrid');
+    menuGrid.innerHTML = '';
+
+    const filteredItems = category === 'all' 
+        ? menuItems 
+        : menuItems.filter(item => item.category === category);
+
+    filteredItems.forEach(item => {
+        const menuCard = document.createElement('div');
+        menuCard.className = 'menu-item';
+        menuCard.innerHTML = `
+            <div class="menu-item-image">${item.emoji}</div>
+            <div class="menu-item-content">
+                <h3>${item.name}</h3>
+                <p>${item.description}</p>
+                <div class="menu-item-price">${item.price}</div>
+            </div>
+        `;
+        menuGrid.appendChild(menuCard);
+    });
+
+    // Update active filter button
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+}
+
+// Filter Menu
+function filterMenu(category) {
+    loadMenuItems(category);
+}
+
+// Load Gallery
+function loadGallery() {
+    const galleryGrid = document.getElementById('galleryGrid');
+    galleryGrid.innerHTML = '';
+
+    galleryItems.forEach(item => {
+        const galleryCard = document.createElement('div');
+        galleryCard.className = 'gallery-item';
+        galleryCard.innerHTML = `
+            <div class="gallery-item-image">${item.emoji}</div>
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+        `;
+        galleryGrid.appendChild(galleryCard);
+    });
+}
+
+// Load Reviews
+function loadReviews() {
+    const reviewsGrid = document.getElementById('reviewsGrid');
+    reviewsGrid.innerHTML = '';
+
+    reviews.forEach(review => {
+        const reviewCard = document.createElement('div');
+        reviewCard.className = 'review-card';
+        reviewCard.innerHTML = `
+            <div class="review-header">
+                <div class="review-avatar">${review.avatar}</div>
+                <div class="review-info">
+                    <h3>${review.name}</h3>
+                    <p>Verified Customer</p>
+                </div>
+            </div>
+            <div class="stars">${'⭐'.repeat(review.rating)}</div>
+            <p class="review-text">"${review.text}"</p>
+        `;
+        reviewsGrid.appendChild(reviewCard);
+    });
+}
+
+// Setup Contact Form
+function setupContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you soon.');
+        contactForm.reset();
+    });
+}
+
+// Smooth Scroll Function
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    section.scrollIntoView({ behavior: 'smooth' });
+}
 </body>
 </html>
